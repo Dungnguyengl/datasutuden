@@ -1,4 +1,5 @@
 #include<iostream>
+#include<iomanip>
 #include<fstream>
 
 
@@ -52,6 +53,7 @@ class Manager : public General
 {
 private:
     int search(std::string id);
+    void soft_data(std::string id);
     int bien_dem = 0;
     std::ofstream outfile;
     std::ifstream infile;
@@ -63,6 +65,10 @@ public:
     void read_data();
     void write_data();
     void add_data(void);
+    void delete_data();
+    void up_date();
+    void show();
+
 };
 
 Manager::Manager()
@@ -144,13 +150,127 @@ void Manager :: add_data(void)
     STDN++;
 }
 
+void Manager::soft_data(std::string id)
+{
+    search(id);
+    for (int i = bien_dem; i <= STDN; i++)
+    {
+        IFM[i] = IFM[i+1];
+    }
+}
+
+void Manager::delete_data()
+{
+    std::string id;
+    std::cout << "nhap id sinh vien can xoa: " ;
+    std::cin >> id;
+    std::cout << std::endl;
+    search(id);
+    IFM[bien_dem].ID = "";
+    IFM[bien_dem].Name = "";
+    IFM[bien_dem].Sex = "";
+    IFM[bien_dem].diem = 0;
+    IFM[bien_dem].status = 0;
+    soft_data(id);
+    STDN--;
+}
+
+void Manager::up_date()
+{
+    std::string id;
+    again:
+    std::cout << "nhap id ban muon cap nhat: ";
+    std::cin >> id;
+    if (search(id) == -1)
+    {
+        std::cout << "id khong ton tai!" << std::endl;
+        goto again;
+    }
+    std::cout << "\nchon truong muon cap nhat: " << std::endl;
+    std::cout << "=================================================" << std::endl;
+    std::cout << "1. >>>ID<<<" << std::endl;
+    std::cout << "2. >>>Ten<<<" << std::endl;
+    std::cout << "3. >>>Tuoi<<<" << std::endl;
+    std::cout << "4. >>>Gioi tinh<<<" << std::endl;
+    std::cout << "=================================================" << std::endl;
+    int cache;
+    std::cin >> cache;
+    switch (cache)
+    {
+    case 1:
+        {
+            std::cout << "nhap ID moi: ";
+            std::cin >> IFM[bien_dem].ID;
+            std::cout << std::endl;
+        }
+        break;
+    case 2:
+        {
+            std::cout << "nhap ten moi: ";
+            std::cin >> IFM[bien_dem].Name;
+            std::cout << std::endl;
+        }
+        break;
+    case 3:
+        {
+            std::cout << "nhap tuoi moi: ";
+            std::cin >> IFM[bien_dem].Age;
+            std::cout << std::endl;
+        }
+        break;
+    case 4:
+        {
+            std::cout << "nhap gioi tinh moi: ";
+            std::cin >> IFM[bien_dem].Sex;
+            std::cout << std::endl;
+        }
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Manager::show()
+{
+    std::cout << "=================================================" << std::endl;
+    std::cout << std::setw(5) << "ID"  << "|" << std::setw(10) << "Ten" << "|" << std::setw(4) << "Tuoi" << "|" << std::setw(5) << "gioi tinh" << std::endl;
+    for(int i = 0; i < STDN; i++)
+    {
+        std::cout << std::setw(5) << IFM[i].ID << "|" << std::setw(10) << IFM[i].Name  << "|" << std::setw(4) << IFM[i].Age << "|" << std::setw(5) << IFM[i].Sex << std::endl;
+    }
+}
+
 int main()
 {
+    int which;
+    char i;
     General general;
     Manager manager;
     do
     {
-    manager.add_data();
-    } while ("y"!="y");
+        general.displaymenu();
+        std::cin >> which;
+        switch (which)
+        {
+        case 1:
+            manager.add_data();
+            break;
+        case 2:
+            manager.delete_data();
+            break;
+        case 3:
+            manager.up_date();
+            break;
+        case 4:
+            manager.show();
+            break;
+        
+        default: std::cout << "nhap sai" << std::endl;
+        }
+        std::cout << "ban co muon tiep tuc! (y/n)" << std::endl;
+        std::cin >> i;
+    } while (i=='y' || i=='Y');
     return 0;
 }
+

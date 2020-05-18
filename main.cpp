@@ -1,8 +1,5 @@
 #include <iostream>
-#include "class.h"
-#include "function.h"
-
-using namespace std;
+#include "function/Manager.h"
 
 int main()
 {
@@ -12,8 +9,8 @@ int main()
     do
     {
         manager.displaymenu();
-        cout << "nhap lua chon: ";
-        cin >> which;
+        std::cout << "nhap lua chon: ";
+        std::cin >> which;
         switch (which)
         {
         case 1:
@@ -30,12 +27,11 @@ int main()
             break;
 
         default:
-            cout << "nhap sai" << endl;
+            std::cout << "nhap sai" << std::endl;
         }
-        cout << "ban muon tiep tuc: (y/n)" << endl;
-        cin >> i;
+        std::cout << "ban muon tiep tuc: (y/n)" << std::endl;
+        std::cin >> i;
     } while (i == 'y' || i == 'Y');
-    cout << "tam biet!" << endl;
-    manager.write_data();
+    std::cout << "tam biet!" << std::endl;
     return 0;
 }

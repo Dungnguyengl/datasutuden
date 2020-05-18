@@ -1,0 +1,5 @@
+2
+1  dung
+16 nam 1 
+2 hoang
+16 nam 1 

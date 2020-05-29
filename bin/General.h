@@ -1,7 +1,7 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
-#include "../struct/struct.h"
+#include "struct.h"
 
 #include <string>
 #include <fstream>

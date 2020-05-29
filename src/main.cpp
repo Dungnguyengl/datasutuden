@@ -1,5 +1,5 @@
 #include <iostream>
-#include "function/Manager.h"
+#include "../bin/Manager.h"
 
 int main()
 {

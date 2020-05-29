@@ -1,4 +1,4 @@
-#include "Manager.h"
+#include "../bin/Manager.h"
 
 Manager::Manager(){
     read_data();

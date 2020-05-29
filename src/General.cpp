@@ -1,4 +1,4 @@
-#include <General.h>
+#include "../bin/General.h"
 
 void General ::read_data()
 {
